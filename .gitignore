@@ -1,0 +1,31 @@
+# Environment variables
+.env
+
+# Dependencies
+node_modules/
+package-lock.json
+
+# Google Cloud credentials
+*.json
+
+# Temporary files
+temp/
+*.wav
+*.mp3
+*.ogg
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+bot_*.log
+
+# Editor directories and files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Operating System
+.DS_Store
+Thumbs.db
