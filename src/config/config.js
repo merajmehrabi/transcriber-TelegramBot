@@ -20,6 +20,12 @@ const parseWhitelist = () => {
     .map(Number);
 };
 
+// Parse allowed group commands
+const parseGroupCommands = () => {
+  const commandsStr = process.env.GROUP_ALLOWED_COMMANDS || 'start,help';
+  return commandsStr.split(',').map(cmd => cmd.trim());
+};
+
 // Configuration object
 const config = {
   // Telegram Bot settings
@@ -32,6 +38,12 @@ const config = {
       enabled: process.env.WHITELIST_ENABLED === 'true',
       users: parseWhitelist(),
       adminId: Number(process.env.ADMIN_USER_ID) // Admin can manage whitelist
+    },
+    groups: {
+      // Group chat settings
+      commandsOnly: process.env.GROUP_COMMANDS_ONLY === 'true', // Only respond to commands in groups
+      allowedCommands: parseGroupCommands(), // List of allowed commands in groups
+      ignoreNonCommands: true // Ignore messages without commands in groups
     }
   },
 

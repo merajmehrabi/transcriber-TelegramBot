@@ -17,6 +17,24 @@ class TelegramBotService {
   }
 
   /**
+   * Check if message is from a group chat
+   * @param {object} ctx - Grammy context
+   * @returns {boolean} - True if message is from a group
+   */
+  isGroupChat(ctx) {
+    return ctx.chat?.type === 'group' || ctx.chat?.type === 'supergroup';
+  }
+
+  /**
+   * Check if command is allowed in groups
+   * @param {string} command - Command name without slash
+   * @returns {boolean} - True if command is allowed
+   */
+  isCommandAllowedInGroup(command) {
+    return config.telegram.groups.allowedCommands.includes(command);
+  }
+
+  /**
    * Check if user is whitelisted
    * @param {number} userId - Telegram user ID
    * @returns {boolean} - True if user is whitelisted or whitelist is disabled
@@ -39,18 +57,37 @@ class TelegramBotService {
    * Set up all bot command and message handlers
    */
   setupHandlers() {
-    // Middleware to check whitelist and log interactions
+    // Middleware to check whitelist, group settings, and log interactions
     this.bot.use(async (ctx, next) => {
       const userId = ctx.from?.id;
       const command = ctx.message?.text || 'non-text interaction';
+      const isGroup = this.isGroupChat(ctx);
       
+      // Check whitelist first
       if (!userId || !this.isUserWhitelisted(userId)) {
-        logger.warn('Unauthorized access attempt', { userId, command });
+        logger.warn('Unauthorized access attempt', { userId, command, isGroup });
         await ctx.reply('Sorry, you are not authorized to use this bot.');
         return;
       }
 
-      logger.debug('Processing request', { userId, command });
+      // Handle group chat restrictions
+      if (isGroup && config.telegram.groups.commandsOnly) {
+        const isCommand = ctx.message?.text?.startsWith('/');
+        if (!isCommand && config.telegram.groups.ignoreNonCommands) {
+          logger.debug('Ignoring non-command message in group', { userId, command });
+          return; // Silently ignore non-command messages in groups
+        }
+
+        if (isCommand) {
+          const commandName = ctx.message.text.split(' ')[0].substring(1);
+          if (!this.isCommandAllowedInGroup(commandName)) {
+            logger.warn('Unauthorized command in group', { userId, command });
+            return; // Silently ignore unauthorized commands in groups
+          }
+        }
+      }
+
+      logger.debug('Processing request', { userId, command, isGroup });
       await next();
     });
 
@@ -262,6 +299,12 @@ class TelegramBotService {
    * @param {object} ctx - Grammy context
    */
   async handleAudio(ctx) {
+    // Don't process audio in groups unless it's a direct command
+    if (this.isGroupChat(ctx) && config.telegram.groups.commandsOnly) {
+      logger.debug('Ignoring audio in group chat', { userId: ctx.from.id });
+      return;
+    }
+
     try {
       const audio = ctx.message.voice || ctx.message.audio;
       if (!audio) {
@@ -312,6 +355,12 @@ class TelegramBotService {
    * @param {object} ctx - Grammy context
    */
   async handleProofread(ctx) {
+    // Don't process proofreading in groups unless explicitly allowed
+    if (this.isGroupChat(ctx) && !this.isCommandAllowedInGroup('proofread')) {
+      logger.debug('Ignoring proofread in group chat', { userId: ctx.from.id });
+      return;
+    }
+
     try {
       const replyToMessage = ctx.message.reply_to_message;
       if (!replyToMessage?.text) {
