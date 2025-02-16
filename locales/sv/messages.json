@@ -1,0 +1,20 @@
+{
+  "welcome": "Välkommen till Ljudtranskriptionsroboten! Jag kan hjälpa dig att transkribera ljudmeddelanden och filer till text.",
+  "help": "Tillgängliga kommandon:\n/start - Starta boten\n/language [en|fa|sv] - Ställ in önskat språk\n/transcribe - Svara på ett ljudmeddelande med detta kommando\n/proofread - Korrekturläs transkriberad text\n/help - Visa detta hjälpmeddelande\n/settings - Visa nuvarande inställningar",
+  "language_set": "Språk inställt på svenska",
+  "invalid_language": "Ogiltig språkkod. Språk som stöds: Engelska (en), Persiska (fa), Svenska (sv)",
+  "processing_audio": "Bearbetar ditt ljud... Detta kan ta en stund.",
+  "error_too_large": "Ljudfilen är för stor. Maximal storlek är 20MB.",
+  "error_no_audio": "Vänligen skicka en ljudfil eller ett röstmeddelande för transkribering.",
+  "error_processing": "Tyvärr uppstod ett fel vid bearbetning av ditt ljud.",
+  "proofreading": "Korrekturläser din text...",
+  "no_text_to_proofread": "Vänligen svara på ett textmeddelande för korrekturläsning.",
+  "settings_current": "Nuvarande inställningar:\nSpråk: Svenska\nKorrekturläsning: Aktiverad",
+  "success": "✅ Transkription slutförd!",
+  "unauthorized": "Tyvärr är du inte behörig att använda denna bot. Kontakta administratören.",
+  "admin_only": "Detta kommando är endast tillgängligt för administratörer.",
+  "user_added": "Användaren har lagts till i vitlistan.",
+  "user_removed": "Användaren har tagits bort från vitlistan.",
+  "invalid_user_id": "Ange ett giltigt användar-ID.",
+  "cannot_remove_admin": "Kan inte ta bort administratören från vitlistan."
+}

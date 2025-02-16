@@ -1,0 +1,20 @@
+{
+  "welcome": "Welcome to the Audio Transcription Bot! I can help you transcribe audio messages and files into text.",
+  "help": "Available commands:\n/start - Start the bot\n/language [en|fa|sv] - Set your preferred language\n/transcribe - Reply to an audio with this command\n/proofread - Reply to transcribed text to edit\n/help - Show this help message\n/settings - Show current settings",
+  "language_set": "Language set to English",
+  "invalid_language": "Invalid language code. Supported languages: English (en), Persian (fa), Swedish (sv)",
+  "processing_audio": "Processing your audio... This may take a moment.",
+  "error_too_large": "Audio file is too large. Maximum size is 20MB.",
+  "error_no_audio": "Please send an audio file or voice message to transcribe.",
+  "error_processing": "Sorry, there was an error processing your audio.",
+  "proofreading": "Proofreading your text...",
+  "no_text_to_proofread": "Please reply to a text message to proofread it.",
+  "settings_current": "Current Settings:\nLanguage: English\nProofreading: Enabled",
+  "success": "✅ Transcription complete!",
+  "unauthorized": "Sorry, you are not authorized to use this bot. Please contact the administrator.",
+  "admin_only": "This command is only available to administrators.",
+  "user_added": "User has been added to the whitelist.",
+  "user_removed": "User has been removed from the whitelist.",
+  "invalid_user_id": "Please provide a valid user ID.",
+  "cannot_remove_admin": "Cannot remove administrator from whitelist."
+}

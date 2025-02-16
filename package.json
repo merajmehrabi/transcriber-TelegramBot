@@ -1,0 +1,29 @@
+{
+  "name": "transcribe-tb",
+  "version": "1.0.0",
+  "description": "Telegram bot for audio transcription with multi-language support",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
+  },
+  "keywords": [
+    "telegram-bot",
+    "speech-to-text",
+    "transcription",
+    "multilingual"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@google-cloud/speech": "^6.0.0",
+    "axios": "^1.6.2",
+    "dotenv": "^16.3.1",
+    "fluent-ffmpeg": "^2.1.2",
+    "grammy": "^1.19.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}

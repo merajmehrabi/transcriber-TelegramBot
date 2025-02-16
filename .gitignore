@@ -6,7 +6,7 @@ node_modules/
 package-lock.json
 
 # Google Cloud credentials
-*.json
+google-cred/
 
 # Temporary files
 temp/
