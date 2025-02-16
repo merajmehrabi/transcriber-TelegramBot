@@ -21,6 +21,8 @@ A multilingual Telegram bot that transcribes audio messages and files into text,
 
 ## Installation
 
+### Standard Installation
+
 1. Clone the repository:
 ```bash
 git clone https://github.com/yourusername/transcribe-TB.git
@@ -42,6 +44,42 @@ cp .env.example .env
 - Create a service account in Google Cloud Console
 - Download the credentials JSON file
 - Set the path in GOOGLE_APPLICATION_CREDENTIALS
+
+### Docker Installation
+
+1. Build the Docker image:
+```bash
+docker build -t transcribe-tb .
+```
+
+2. Create a `.env` file from the example:
+```bash
+cp .env.example .env
+# Edit .env with your configuration
+```
+
+3. Run the container:
+```bash
+docker run -d \
+  --name transcribe-bot \
+  --env-file .env \
+  -v $(pwd)/logs:/usr/src/app/logs \
+  -v $(pwd)/temp:/usr/src/app/temp \
+  -v /path/to/google-credentials.json:/usr/src/app/google-credentials.json \
+  transcribe-tb
+```
+
+Replace `/path/to/google-credentials.json` with the actual path to your Google Cloud credentials file.
+
+4. View logs:
+```bash
+docker logs -f transcribe-bot
+```
+
+5. Stop the container:
+```bash
+docker stop transcribe-bot
+```
 
 ## Configuration
 
